@@ -1,53 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cherry-go-backend 
+  name: cherry-go-worker-backend 
   labels:
-    app: cherry-go-backend
+    app: cherry-go-worker-backend
 spec:
   selector: 
     matchLabels:
-      app: cherry-go-backend 
+      app: cherry-go-worker-backend 
   replicas: 2
   template:
     metadata:
       labels:
-        app: cherry-go-backend 
+        app: cherry-go-worker-backend 
     spec:
       containers:
-        - name: cherry-go-backend
-          image: "andersonfrfilho/cherry-go_api_backend:1.0.4"
+        - name: cherry-go-worker-backend-api-container
+          image: "andersonfrfilho/cherry-go_worker_backend:1.0.0"
           resources:
             requests: 
-              cpu: "200m"
-              memory: 200Mi
+              cpu: "0.3"
+              memory: 20Mi 
             limits: 
               cpu: 500m
-              memory: 400Mi 
+              memory: 25Mi 
           startupProbe: 
             httpGet:
-              path: '/healthcheck'
-              port: 3333 
+              path: '/healthz'
+              port: 3000 
             periodSeconds: 3 
             failureThreshold: 30 
           readinessProbe: 
             httpGet:
-              path: '/healthcheck'
-              port: 3333 
+              path: '/healthz'
+              port: 3000 
             periodSeconds: 3 
             failureThreshold: 1 
           livenessProbe:
             httpGet: 
-              path: '/healthcheck'
-              port: 3333 
+              path: '/healthz'
+              port: 3000 
             periodSeconds: 5 
             failureThreshold: 1 
             timeoutSeconds: 1 
             successThreshold: 1 
           envFrom:
             - configMapRef:
-                name: cherry-go-env
+                name: cherry-go-worker-env
             - secretRef:
-                name: cherry-go-secret-env
-      imagePullSecrets:
-      - name: regcred
+                name: cherry-go-worker-secret-env

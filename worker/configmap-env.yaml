@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cherry-go-env
+  name: cherry-go-worker-env
 data:
-  ENVIRONMENT: "staging"
+  ENVIRONMENT: "homolog"
   PORT: "3333"
   TZ: "UTC"
   DATE_PROVIDER: "dateFns"
@@ -33,7 +33,7 @@ data:
 
   # Postgres
   POSTGRES_PORT: "5432"
-  POSTGRES_HOST: "postgres-h"
+  POSTGRES_HOST: "localhost"
   POSTGRES_USER: "postgres"
   POSTGRES_DB: "cherry_go"
   # POSTGRES TEST

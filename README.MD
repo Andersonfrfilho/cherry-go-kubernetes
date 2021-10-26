@@ -47,7 +47,7 @@ kubectl config set-context --current --namespace=default
 ```
 
 8 - Executar comando dentro dos pods:
-``` kubectl exec -it nome-do-pod -- bash```
+```kubectl exec -it nome-do-pod -- bash```
 
 9 - verificar service criado (postgres-h) nome_service:
 ```ping postgres-h```
@@ -159,4 +159,68 @@ teste de carga: utilizando o fortio
 
 ```sh
 kubectl run -it fortio --rm --image=fortio/fortio -- load -qps 1800 -t 120s -c 70 "http://nodejs-server-service:3000/healthz"
+```
+
+```sh
+echo -n "value" | base64
+```
+
+```sh
+kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=andersonfrfilho --docker-password=afrf102030 --docker-email=andersonfrfilho@gmail.com
+```
+
+```yaml
+  template:
+    metadata:
+      labels:
+        app: cherry-go-backend 
+    spec:
+      containers:
+        - name: cherry-go-backend-api-container
+          image: "andersonfrfilho/cherry-go_api_backend:1.0.0"
+          resources:
+            requests: 
+              cpu: "0.3"
+              memory: 20Mi 
+            limits: 
+              cpu: 500m
+              memory: 25Mi 
+          startupProbe: 
+            httpGet:
+              path: '/healthz'
+              port: 3000 
+            periodSeconds: 3 
+            failureThreshold: 30 
+          readinessProbe: 
+            httpGet:
+              path: '/healthz'
+              port: 3000 
+            periodSeconds: 3 
+            failureThreshold: 1 
+          livenessProbe:
+            httpGet: 
+              path: '/healthz'
+              port: 3000 
+            periodSeconds: 5 
+            failureThreshold: 1 
+            timeoutSeconds: 1 
+            successThreshold: 1 
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "102030"      
+          # envFrom:
+          #   - configMapRef:
+          #       name: cherry-go-env
+          #   - secretRef:
+          #       name: cherry-go-secret-env
+      imagePullSecrets:
+      - name: regcred
+```
+connect database:
+```sh
+kubectl port-forward service/postgres-h 5432:5432
+```
+
+```sh
+kubectl delete pvc --all 
 ```

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  replicas: 4
+  serviceName: mongo-h
+  selector:
+      matchLabels:
+        app: mongo 
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo-container
+          image: mongo
+          envFrom:
+            - configMapRef:
+                name: cherry-go-env
+            - secretRef:
+                name: cherry-go-secret-env
+          volumeMounts:
+            - mountPath: /data/mongo
+              name: mongo-volume
+
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-volume
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
