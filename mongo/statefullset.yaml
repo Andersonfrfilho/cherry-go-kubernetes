@@ -4,14 +4,14 @@ metadata:
   name: mongo
 spec:
   replicas: 4
-  serviceName: mongo-h
+  serviceName: mongo-service
   selector:
       matchLabels:
-        app: mongo 
+        app: mongo-cherry-go 
   template:
     metadata:
       labels:
-        app: mongo
+        app: mongo-cherry-go
     spec:
       containers:
         - name: mongo-container
