@@ -5,10 +5,9 @@ metadata:
 spec:
   selector: 
     app: cherry-go-backend
-  type: LoadBalancer 
+  type: ClusterIP 
   ports:
   - name:  cherry-go-backend-service
     port: 80 
     targetPort: 3333 
     protocol: TCP
-    nodePort: 30000

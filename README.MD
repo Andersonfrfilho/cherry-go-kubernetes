@@ -227,4 +227,17 @@ kubectl delete pvc --all
 
 kubectl port-forward service/cherry-go-backend-service 3333:80
 
+
+
 cd redis;kubectl apply -f .\redis.yaml;kubectl apply -f .\hpa.yaml;kubectl apply -f .\redis-service.yaml;cd ..;cd mongo;kubectl apply -f .\statefullset.yaml;kubectl apply -f .\mongo-service.yaml;cd..;cd postgres;kubectl apply -f .\statefullset.yaml;kubectl apply -f .\postgres-service.yaml;cd ..;cd backend;kubectl apply -f .\deployment.yaml;kubectl apply -f .\hpa.yaml;kubectl apply -f .\service.yaml;kubectl apply -f .\configmap-env.yaml;kubectl apply -f .\secret.yaml;cd ..;
+
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+
+kubectl get service ingress-nginx-controller --namespace=ingress-nginx
+
+install cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml
+
+kubectl apply -f .\backend\cluster-issuer.yaml
+
+kubectl apply -f .\backend\ingress.yaml
