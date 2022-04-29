@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cherry-go-backend
-          image: "andersonfrfilho/cherry-go_api_backend:1.0.0"
+          image: "andersonfrfilho/cherry-go_api_backend:1.0.1"
           resources:
             requests: 
               cpu: "200m"

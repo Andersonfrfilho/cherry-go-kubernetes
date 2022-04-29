@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cherry-go-worker-backend 
+  name: cherry-go-worker 
   labels:
-    app: cherry-go-worker-backend
+    app: cherry-go-worker
 spec:
   selector: 
     matchLabels:
-      app: cherry-go-worker-backend 
+      app: cherry-go-worker 
   replicas: 2
   template:
     metadata:
       labels:
-        app: cherry-go-worker-backend 
+        app: cherry-go-worker 
     spec:
       containers:
-        - name: cherry-go-worker-backend-api-container
+        - name: cherry-go-worker-container
           image: "andersonfrfilho/cherry-go_worker_backend:1.0.0"
           resources:
             requests: 

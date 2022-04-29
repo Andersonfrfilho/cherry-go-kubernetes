@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cherry-go-worker-backend-service
+  name: cherry-go-worker-service
 spec:
   selector: 
-    app: cherry-go-worker-backend
+    app: cherry-go-worker
   type: LoadBalancer 
   ports:
-  - name:  cherry-go-worker-backend-service
+  - name:  cherry-go-worker-service
     port: 3334 
     targetPort: 3334 
     protocol: TCP
