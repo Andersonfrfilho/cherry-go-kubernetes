@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongo
+  name: mongo-cherry-go
 spec:
   replicas: 4
-  serviceName: mongo-service
+  serviceName: mongo-cherry-go-service
   selector:
       matchLabels:
         app: mongo-cherry-go 
@@ -14,20 +14,20 @@ spec:
         app: mongo-cherry-go
     spec:
       containers:
-        - name: mongo-container
+        - name: mongo-cherry-go-container
           image: mongo
           envFrom:
             - configMapRef:
-                name: cherry-go-env
+                name: cherry-go-api-env
             - secretRef:
-                name: cherry-go-secret-env
+                name: cherry-go-api-secret-env
           volumeMounts:
             - mountPath: /data/mongo
-              name: mongo-volume
+              name: mongo-cherry-go-volume
 
   volumeClaimTemplates:
   - metadata:
-      name: mongo-volume
+      name: mongo-cherry-go-volume
     spec:
       accessModes:
         - ReadWriteOnce

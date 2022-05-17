@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-broker-cherry-go-service
+  labels:
+    name: kafka
+spec:
+  ports:
+  - port: 9092
+    targetPort: 9092
+    name: kafka-broker-cherry-go-service-port-internal
+    protocol: TCP
+  - port: 9094
+    targetPort: 9094
+    name: kafka-broker-cherry-go-service-port-external
+    protocol: TCP
+  selector:
+    app: kafka-broker-cherry-go
+    id: "0"
+  type: ClusterIP

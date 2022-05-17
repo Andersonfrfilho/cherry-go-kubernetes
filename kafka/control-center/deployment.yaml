@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: control-center-kafka-cherry-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: control-center-kafka-cherry-go
+        id: "0"
+  template:
+    metadata:
+      labels:
+        app: control-center-kafka-cherry-go
+        id: "0"
+    spec:
+      containers:
+      - name: control-center-kafka-cherry-go-container
+        image: confluentinc/cp-enterprise-control-center:6.0.1
+        resources:
+          requests: 
+            cpu: "0.3"
+            memory: 20Mi 
+          limits: 
+            cpu: 500m
+            memory: 25Mi 
+        ports:
+        - name: cckcgc-port
+          containerPort: 9021
+        env:
+        - name: CONTROL_CENTER_BOOTSTRAP_SERVERS
+          value: "kafka-broker-cherry-go-service:9092"
+        - name: CONTROL_CENTER_REPLICATION_FACTOR
+          value: "1"
+        - name: PORT
+          value: "9021"

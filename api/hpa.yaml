@@ -1,11 +1,11 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: cherry-go-backend-hpa
+  name: cherry-go-api-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    name: cherry-go-backend
+    name: cherry-go-api
     kind: Deployment
   minReplicas: 2
   maxReplicas: 5

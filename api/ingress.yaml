@@ -18,7 +18,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: "cherry-go-backend-service"
+            name: "cherry-go-api-service"
             port:
               number: 80 
   tls:

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cherry-go-backend 
+  name: cherry-go-api
   labels:
-    app: cherry-go-backend
+    app: cherry-go-api
 spec:
   selector: 
     matchLabels:
-      app: cherry-go-backend 
+      app: cherry-go-api 
   replicas: 2
   template:
     metadata:
       labels:
-        app: cherry-go-backend 
+        app: cherry-go-api 
     spec:
       containers:
-        - name: cherry-go-backend
-          image: "andersonfrfilho/cherry-go_api_backend:1.0.1"
+        - name: cherry-go-api
+          image: "andersonfrfilho/cherry-go-api:1b74749"
           resources:
             requests: 
               cpu: "200m"
@@ -46,8 +46,8 @@ spec:
             successThreshold: 1 
           envFrom:
             - configMapRef:
-                name: cherry-go-env
+                name: cherry-go-api-env
             - secretRef:
-                name: cherry-go-secret-env
+                name: cherry-go-api-secret-env
       imagePullSecrets:
       - name: regcred

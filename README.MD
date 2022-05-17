@@ -187,27 +187,27 @@ kubectl create secret docker-registry regcred --docker-server=https://index.dock
               memory: 25Mi 
           startupProbe: 
             httpGet:
-              path: '/healthz'
-              port: 3000 
+              path: '/healthcheck'
+              port: 3333 
             periodSeconds: 3 
             failureThreshold: 30 
           readinessProbe: 
             httpGet:
-              path: '/healthz'
-              port: 3000 
+              path: '/healthcheck'
+              port: 3333 
             periodSeconds: 3 
             failureThreshold: 1 
           livenessProbe:
             httpGet: 
-              path: '/healthz'
-              port: 3000 
+              path: '/healthcheck'
+              port: 3333 
             periodSeconds: 5 
             failureThreshold: 1 
             timeoutSeconds: 1 
             successThreshold: 1 
           env:
-            - name: POSTGRES_PASSWORD
-              value: "102030"      
+            # - name: POSTGRES_PASSWORD
+            #   value: "102030"      
           # envFrom:
           #   - configMapRef:
           #       name: cherry-go-env
@@ -241,3 +241,20 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 kubectl apply -f .\backend\cluster-issuer.yaml
 
 kubectl apply -f .\backend\ingress.yaml
+
+1º - crie um namespace
+kubectl create namespace cherry-go-kafka
+2º - crie o kafka cluster
+helm install cherry-go-kafka --set externalAccess.enabled=false,serviceAccount.create=true,rbac.create=true,deleteTopicEnable=true,allowPlaintextListener=true,autoCreateTopicsEnable=true bitnami/kafka -n cherry-go-kafka
+
+consumer
+groffe-broker-kafka.groffe-testes-kafka.svc.cluster.local
+producer
+groffe-broker-kafka-0.groffe-broker-kafka-headless.groffe-testes-kafka.svc.cluster.local:9092
+
+kubectl get pods -n cherry-go-kafka
+kubectl get services -n cherry-go-kafka
+
+delete namespace
+kubectl delete all --all -n cherry-go-kafka
+kubectl delete ns cherry-go-kafka

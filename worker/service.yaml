@@ -5,9 +5,9 @@ metadata:
 spec:
   selector: 
     app: cherry-go-worker
-  type: LoadBalancer 
+  type: ClusterIP 
   ports:
-  - name:  cherry-go-worker-service
-    port: 3334 
+  - name:  cherry-go-worker-service-port
+    port: 80 
     targetPort: 3334 
     protocol: TCP

@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cherry-go-backend-service
+  name: cherry-go-api-service
 spec:
   selector: 
-    app: cherry-go-backend
+    app: cherry-go-api
   type: ClusterIP 
   ports:
-  - name:  cherry-go-backend-service
+  - name:  cherry-go-api-service-port
     port: 80 
     targetPort: 3333 
     protocol: TCP

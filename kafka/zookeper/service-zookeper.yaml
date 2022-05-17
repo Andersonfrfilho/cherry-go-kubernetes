@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zoo1
+  name: zookeeper-cherry-go-service
   labels:
-    app: zookeeper-1
+    app: zookeeper-cherry-go
 spec:
   ports:
   - name: client
@@ -16,4 +16,4 @@ spec:
     port: 3888
     protocol: TCP
   selector:
-    app: zookeeper-1
+    app: zookeeper-cherry-go

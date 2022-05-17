@@ -1,24 +1,32 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: zookeeper-deploy
+  name: zookeeper-cherry-go
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: zookeeper-1
+      app: zookeeper-cherry-go
   template:
     metadata:
       labels:
-        app: zookeeper-1
+        app: zookeeper-cherry-go
     spec:
       containers:
-      - name: zoo1
-        image: digitalwonderland/zookeeper
-        ports:
-        - containerPort: 2181
-        env:
-        - name: ZOOKEEPER_ID
-          value: "1"
-        - name: ZOOKEEPER_SERVER_1
-          value: zoo1
+        - name: zookeeper-cherry-go-container
+          image: confluentinc/cp-zookeeper:7.0.1
+          resources:
+            requests: 
+              cpu: "0.3"
+              memory: 20Mi 
+            limits: 
+              cpu: 500m
+              memory: 25Mi 
+          ports:  
+            - name: zookeeper-port 
+              containerPort: 2181
+          env:
+          - name: ZOOKEEPER_CLIENT_PORT
+            value: "2181"
+          - name: ZOOKEEPER_TICK_TIME
+            value: "2000"

@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kafka-broker-cherry-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: kafka-broker-cherry-go
+        id: "0"
+  template:
+    metadata:
+      labels:
+        app: kafka-broker-cherry-go
+        id: "0"
+    spec:
+      containers:
+      - name: kafka-broker-cherry-go-container
+        image: confluentinc/cp-kafka:7.0.1
+        resources:
+          requests: 
+            cpu: "0.3"
+            memory: 20Mi 
+          limits: 
+            cpu: 500m
+            memory: 25Mi 
+        env:
+        - name: KAFKA_BROKER_ID
+          value: "1"
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: "zookeeper-cherry-go-service:2181"
+        - name: KAFKA_INTER_BROKER_LISTENER_NAME
+          value: "INTERNAL"
+        - name: KAFKA_ADVERTISED_HOST_NAME
+          value: "kafka-broker-cherry-go-service"
+        - name: KAFKA_LISTENERS
+          value: "INTERNAL://:9092,OUTSIDE://:9094"
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: "INTERNAL://kafka-broker-cherry-go-service:9092,OUTSIDE://kafka-broker-cherry-go-service:9094"
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value:  "INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT"
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "1"
+        - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
+          value: "1"
+        - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
+          value: "1"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: control-center-kafka-cherry-go-service
+  labels:
+    name: kafka
+spec:
+  ports:
+  - port: 9091
+    name: control-center-kafka-cherry-go-service-port
+    protocol: TCP
+  selector:
+    app: control-center-kafka-cherry-go
+    id: "0"
+  type: ClusterIP
