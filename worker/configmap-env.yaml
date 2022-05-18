@@ -4,7 +4,7 @@ metadata:
   name: cherry-go-worker-env
 data:
   ENVIRONMENT: "staging"
-  PORT: "3333"
+  PORT: "3334"
   TZ: "UTC"
   DATE_PROVIDER: "dateFns"
   FORGOT_MAIL_URL: "http://cherry-go-backend-service:33333/v1/users/password/reset?token="

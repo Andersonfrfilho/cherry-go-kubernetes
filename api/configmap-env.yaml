@@ -36,6 +36,7 @@ data:
   POSTGRES_HOST: "postgres-cherry-go-service"
   POSTGRES_USER: "postgres"
   POSTGRES_DB: "cherry_go"
+  PGTZ: "America/Sao_Paulo"
   # POSTGRES TEST
   POSTGRES_PORT_TEST: "5434"
   POSTGRES_DB_TEST: "cherry_go_test"
