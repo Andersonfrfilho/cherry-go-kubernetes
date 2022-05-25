@@ -16,8 +16,12 @@ data:
   QUEUE_BASE_URL_BROKER: "cherry-go-kafka.cherry-go-kafka.svc.cluster.local:9092"
   QUEUE_PROVIDER: "kafka"
 
-  ## AWS Credentials
+  ## AWS SMTP
+  AWS_SMTP_ACCESS_KEY_ID: "AKIA3FKLGXMCMBYWY47N"
   AWS_DEFAULT_REGION: "us-east-1"
+
+  ## AWS SNS
+  AWS_SNS_ACCESS_KEY_ID: "AKIA3FKLGXMCIICXDNQF"
 
   ## AWS Bucket
   AWS_BUCKET: "cherry-go-bucket-stg"
