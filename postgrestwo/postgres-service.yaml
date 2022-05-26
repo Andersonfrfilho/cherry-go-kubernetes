@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-cherry-go-service
+spec:
+  selector:
+    app: postgres-cherry-go
+  type: ClusterIP
+  ports:
+    - name: postgres-cherry-go-service-port
+      port: 5432
+      protocol: TCP

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-cherry-go
+spec:
+  selector:
+    matchLabels:
+      app: postgres-cherry-go
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres-cherry-go
+    spec:
+      containers:
+      - name: postgres-cherry-go-container
+        image: postgres
+        resources:
+          requests: 
+            cpu: "200m"
+            memory: 200Mi
+          limits: 
+            cpu: 500m
+            memory: 400Mi 
+        envFrom:
+          - configMapRef:
+              name: cherry-go-api-env
+          - secretRef:
+              name: cherry-go-api-secret-env
+        ports:
+        - containerPort: 5432
+          name: postgres-port
+        volumeMounts:
+        - name: cherry-go-postgres-persistent-storage
+          mountPath: /data/postgres
+      volumes:
+      - name: cherry-go-postgres-persistent-storage
+        persistentVolumeClaim:
+          claimName: cherry-go-postgres-pv-claim
