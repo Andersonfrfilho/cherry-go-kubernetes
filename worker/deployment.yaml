@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cherry-go-worker-container
-          image: "andersonfrfilho/cherry-go-worker:0186b8e"
+          image: "andersonfrfilho/cherry-go-worker:b1d8968"
           resources:
             requests: 
               cpu: "200m"

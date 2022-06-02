@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-cherry-go
+spec:
+  selector:
+    matchLabels:
+      app: mongo-cherry-go
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mongo-cherry-go
+    spec:
+      containers:
+      - name: mongo-cherry-go-container
+        image: mongo
+        resources:
+          requests: 
+            cpu: "200m"
+            memory: 200Mi
+          limits: 
+            cpu: 500m
+            memory: 400Mi 
+        envFrom:
+          - configMapRef:
+              name: cherry-go-api-env
+          - secretRef:
+              name: cherry-go-api-secret-env
+        ports:
+        - containerPort: 27017
+          name: mongo-port
+        volumeMounts:
+        - name: cherry-go-mongo-persistent-storage
+          mountPath: /data/mongo
+      volumes:
+      - name: cherry-go-mongo-persistent-storage
+        persistentVolumeClaim:
+          claimName: cherry-go-mongo-pv-claim

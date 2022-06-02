@@ -20,12 +20,20 @@ data:
   ## AWS Credentials
   AWS_DEFAULT_REGION: "us-east-1"
 
+  ## AWS Credentials SMTP
+  AWS_SMTP_ACCESS_KEY_ID: "AKIA3FKLGXMCMBYWY47N"
+
+  ## SMS PROVIDER CREDENTIALS (SNS)
+  AWS_SNS_ACCESS_KEY_ID: "AKIA3FKLGXMCIICXDNQF"
+
   ## AWS Bucket
-  AWS_BUCKET: "cherry-go-bucket-stg"
+  STORAGE_PROVIDER: "s3"
+  AWS_BUCKET_ACCESS_KEY_ID: "AKIA3FKLGXMCHWHEZVHA"
+  
+  AWS_BUCKET_NAME: "cherry-go-bucket-staging"
   AWS_BUCKET_REGION: "us-east-1"
-  AWS_BUCKET_URL: ""
-  # {dev:localhost:3333, prod:https://api-rentx-andersonfrfilho.s3.amazonaws.com }
-  STORAGE_URL: "http://cherry-go-backend-service:3333"
+ 
+  STORAGE_URL: "https://staging.cherry-go.com/v1"
 
   ##Storage Optional { dev: local, prod: s3 }
   DISK_STORAGE_PROVIDER: "local"
@@ -49,9 +57,9 @@ data:
   MONGO_TEST_DB: "cherry_go"
 
   # Redis
-  REDIS_HOST: "redis-cherry-go-service"
-  REDIS_PORT: "6379"
-  REDIS_PASSWORD: ""
+  CACHE_DRIVER: "redis"
+  CACHE_URL: "cherry-go-redis-master.default.svc.cluster.local"
+  CACHE_PORT: "6379"
   # Sentry
   SENTRY_DSN: "https://be585c9462224567bb62e38ecfa48ef1@o296769.ingest.sentry.io/5734148"
 
