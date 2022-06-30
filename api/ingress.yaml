@@ -11,7 +11,7 @@ metadata:
 spec:
   rules:
   #host aceitos
-  - host: "staging.cherry-go.com"
+  - host: "staging.api.cherry-go.com"
     http:
       paths:
       - pathType: Prefix
@@ -23,5 +23,5 @@ spec:
               number: 80 
   tls:
   - hosts: 
-    - staging.cherry-go.com
+    - staging.api.cherry-go.com
     secretName: letsencrypt-tls
