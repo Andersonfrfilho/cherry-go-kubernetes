@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cherry-go-backoffice
+  labels:
+    app: cherry-go-backoffice
+spec:
+  selector: 
+    matchLabels:
+      app: cherry-go-backoffice 
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: cherry-go-backoffice 
+    spec:
+      containers:
+        - name: cherry-go-backoffice
+          image: "andersonfrfilho/cherry-go-backoffice:0c9a53c"
+          resources:
+            requests: 
+              cpu: "500m"
+              memory: 2000Mi
+            limits: 
+              cpu: 800m
+              memory: 2000Mi 
+          startupProbe: 
+            httpGet:
+              path: '/'
+              port: 3000 
+            periodSeconds: 3 
+            failureThreshold: 30 
+          readinessProbe: 
+            httpGet:
+              path: '/'
+              port: 3000 
+            periodSeconds: 3 
+            failureThreshold: 1 
+          livenessProbe:
+            httpGet: 
+              path: '/'
+              port: 3000 
+            periodSeconds: 5 
+            failureThreshold: 1 
+            timeoutSeconds: 1 
+            successThreshold: 1 
+          envFrom:
+            - configMapRef:
+                name: cherry-go-backoffice-env
+            - secretRef:
+                name: cherry-go-backoffice-secret-env
+      imagePullSecrets:
+      - name: regcred

@@ -363,11 +363,35 @@ convert base64 to string
 
 ## criar api
 
-cd api;kubectl apply -f .\configmap-env.yaml;kubectl apply -f .\secret.yaml;kubectl apply -f .\deployment.yaml;kubectl apply -f .\hpa.yaml;kubectl apply -f .\service.yaml;cd ..;
+kubectl apply -f ./api;
+
+## criar backoffice 
+
+kubectl apply -f ./backoffice;
+
+## criar front
+
+kubectl apply -f ./client
+
+instalando ingress:
+digital ocean pegar o provedor neste site -> https://kubernetes.github.io/ingress-nginx/deploy/#digital-ocean
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/do/deploy.yaml
+
+kubectl get all -n ingress-nginx
+
+Ajustar dominio
+
+kubectl apply -f ./ingress
+
+#######################################################
 
 kubectl create namespace ingress-nginx
 
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+
+kubectl create namespace ingress-nginx-cherry-go-backoffice
+helm install my-release nginx-stable/nginx-ingress
+helm install ingress-nginx-cherry-go-backoffice nginx-stable/nginx-ingress --namespace ingress-nginx --create-namespace
 
 kubectl get service ingress-nginx-controller --namespace=ingress-nginx
 

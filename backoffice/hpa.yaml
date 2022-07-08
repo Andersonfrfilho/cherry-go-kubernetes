@@ -1,0 +1,12 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cherry-go-backoffice-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    name: cherry-go-backoffice
+    kind: Deployment
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
