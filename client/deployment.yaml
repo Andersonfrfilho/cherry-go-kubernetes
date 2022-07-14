@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cherry-go-backoffice
+  name: cherry-go-client
   labels:
-    app: cherry-go-backoffice
+    app: cherry-go-client
 spec:
   selector: 
     matchLabels:
-      app: cherry-go-backoffice 
+      app: cherry-go-client 
   replicas: 2
   template:
     metadata:
       labels:
-        app: cherry-go-backoffice 
+        app: cherry-go-client 
     spec:
       containers:
-        - name: cherry-go-backoffice
-          image: "andersonfrfilho/cherry-go-backoffice:0c9a53c"
+        - name: cherry-go-client
+          image: "andersonfrfilho/cherry-go-web-client:ebb68bd"
           resources:
             requests: 
-              cpu: "300m"
+              cpu: "250m"
               memory: 300Mi
             limits: 
-              cpu: 600m
+              cpu: 500m
               memory: 600Mi 
           startupProbe: 
             httpGet:
@@ -46,8 +46,8 @@ spec:
             successThreshold: 1 
           envFrom:
             - configMapRef:
-                name: cherry-go-backoffice-env
+                name: cherry-go-client-env
             - secretRef:
-                name: cherry-go-backoffice-secret-env
+                name: cherry-go-client-secret-env
       imagePullSecrets:
       - name: regcred

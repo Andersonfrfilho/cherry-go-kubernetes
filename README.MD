@@ -231,6 +231,7 @@ kubectl port-forward service/cherry-go-backend-service 3333:80
 ## service do kafka
 
 1º - crie um namespace
+helm fetch bitnami/kafka
 kubectl create namespace cherry-go-kafka
 2º - crie o kafka cluster
 helm install cherry-go-kafka --set externalAccess.enabled=false,serviceAccount.create=true,rbac.create=true,deleteTopicEnable=true,allowPlaintextListener=true,autoCreateTopicsEnable=true bitnami/kafka -n cherry-go-kafka
@@ -289,21 +290,19 @@ delete namespace
 kubectl delete all --all -n cherry-go-kafka
 kubectl delete ns cherry-go-kafka
 
+## instalando metricas
+
+1.5.1 - kubectl apply -f .\metrics-server.yaml
+
 ## criar postgres Database
 1.5 - create database
 
-1.5.1 - kubectl apply -f .\postgres\persistentVolume.yaml
-1.5.2 - kubectl apply -f .\postgres\persistentVolumeClaim.yaml
-1.5.3 - kubectl apply -f .\postgres\deployment.yaml
-1.5.4 - kubectl apply -f .\postgres\service.yaml
+1.5.1 - kubectl apply -f .\postgres
 
 ## criar mongo Database
 1.5 - create database
 
-1.5.1 - kubectl apply -f .\mongo\persistentVolume.yaml
-1.5.2 - kubectl apply -f .\mongo\persistentVolumeClaim.yaml
-1.5.3 - kubectl apply -f .\mongo\deployment.yaml
-1.5.4 - kubectl apply -f .\mongo\service.yaml
+1.5.1 - kubectl apply -f .\mongo
 
 ## criar redis service
 2 - create redis service
@@ -373,41 +372,33 @@ kubectl apply -f ./backoffice;
 
 kubectl apply -f ./client
 
-instalando ingress:
-digital ocean pegar o provedor neste site -> https://kubernetes.github.io/ingress-nginx/deploy/#digital-ocean
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/do/deploy.yaml
-
-kubectl get all -n ingress-nginx
-
-Ajustar dominio
-
-kubectl apply -f ./ingress
-
 #######################################################
 
 kubectl create namespace ingress-nginx
 
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
 
-kubectl create namespace ingress-nginx-cherry-go-backoffice
-helm install my-release nginx-stable/nginx-ingress
-helm install ingress-nginx-cherry-go-backoffice nginx-stable/nginx-ingress --namespace ingress-nginx --create-namespace
-
 kubectl get service ingress-nginx-controller --namespace=ingress-nginx
 
-install cert-manager
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml
 
-aguardar o load balancer ser liberado para adicionar no seu dns -> kubectl get service ingress-nginx-controller --namespace=ingress-nginx
-
-kubectl apply -f .\api\cluster-issuer.yaml
+kubectl apply -f .\api\issuer-prod.yaml
 
 kubectl apply -f .\api\ingress.yaml
 
+kubectl get certificate
+
+kubectl describe certificate letsencrypt-staging
+
+ cmctl status certificate cherry-go-api-letsencrypt-tls
+ 
 ## criar o worker
 
 cd worker;kubectl apply -f .\configmap-env.yaml;kubectl apply -f .\secret.yaml;kubectl apply -f .\deployment.yaml;kubectl apply -f .\hpa.yaml;kubectl apply -f .\service.yaml;cd ..;
 
+kubectl describe certificate staging-api-cherry-go-tls
+kubectl get certificate
+kubectl get certificaterequest 
 # configurar na digital ocean
 
 doctl kubernetes cluster kubeconfig save 3aba708d-0c1e-495f-ae33-247bf56f31fa
