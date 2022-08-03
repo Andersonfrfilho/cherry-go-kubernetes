@@ -7,9 +7,9 @@ data:
   PORT: "3333"
   TZ: "UTC"
   DATE_PROVIDER: "dateFns"
-  FORGOT_MAIL_URL: "https://staging.cherry-go.com/v1/users/password/reset?token="
+  FORGOT_MAIL_URL: "https://staging.cherry-go.com/users/password/reset?token="
   FORGOT_MOBILE_URL: "cherry-go://app/reset-password/"
-  CONFIRM_MAIL_URL: "https://staging.cherry-go.com/v1/users/confirm/mail?token="
+  CONFIRM_MAIL_URL: "https://staging.cherry-go.com/users/mail/confirm?token="
   TOKEN_EXPIRATION_TIME_MAIL_CONFIRMATION: "30"
   EXPIRE_IN_TOKEN: "7d"
 

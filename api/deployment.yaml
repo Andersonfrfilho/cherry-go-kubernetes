@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cherry-go-api
-          image: "andersonfrfilho/cherry-go-api:837f976"
+          image: "andersonfrfilho/cherry-go-api:ad11371"
           resources:
             requests: 
               cpu: "200m"
@@ -40,7 +40,7 @@ spec:
             httpGet: 
               path: '/healthcheck'
               port: 3333 
-            periodSeconds: 5 
+            periodSeconds: 5000 
             failureThreshold: 1 
             timeoutSeconds: 1 
             successThreshold: 1 

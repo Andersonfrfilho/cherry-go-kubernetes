@@ -218,7 +218,7 @@ kubectl create secret docker-registry regcred --docker-server=https://index.dock
 ```
 connect database:
 ```sh
-kubectl port-forward service/postgres-h 5432:5432
+kubectl port-forward service/postgres-cherry-go-service 5432:5432
 ```
 
 ```sh
